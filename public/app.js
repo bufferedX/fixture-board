@@ -75,11 +75,14 @@ function getTeamBreakdown(teamId) {
       status: match.status
     };
 
-    if (match.status === 'FINISHED' && score) {
+    const isLive = match.status === 'IN_PLAY' || match.status === 'PAUSED';
+
+    if ((match.status === 'FINISHED' || isLive) && score) {
       const teamGoals = isHome ? score.home : score.away;
       const opponentGoals = isHome ? score.away : score.home;
       entry.teamGoals = teamGoals;
       entry.opponentGoals = opponentGoals;
+      entry.isLive = isLive;
       entry.scoreDisplay = isHome
         ? `${score.home}-${score.away}`
         : `${score.away}-${score.home}`;
@@ -168,7 +171,8 @@ function renderCategory(label, className, entries) {
   const matchesHtml = entries.length === 0
     ? '<div class="empty-category">None</div>'
     : entries.map(e => `
-      <div class="match-entry">
+      <div class="match-entry${e.isLive ? ' live' : ''}">
+        ${e.isLive ? '<span class="live-badge">LIVE</span>' : ''}
         <img class="opponent-crest" src="${e.opponent.crest}" alt="" loading="lazy">
         <span class="opponent-name">${e.opponent.shortName || e.opponent.name}</span>
         ${e.scoreDisplay

@@ -324,6 +324,28 @@ header h1 {
   to { transform: rotate(360deg); }
 }
 
+/* Live matches */
+.match-entry.live {
+  border: 1px solid #e74c3c44;
+  background: #1a0a0a;
+}
+
+.live-badge {
+  font-size: 9px;
+  font-weight: 700;
+  color: #e74c3c;
+  background: #e74c3c22;
+  padding: 2px 5px;
+  border-radius: 3px;
+  letter-spacing: 0.5px;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 /* Empty state */
 .empty-category {
   font-size: 12px;
